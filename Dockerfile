@@ -1,4 +1,4 @@
-FROM php:5.5-fpm
+FROM php:fpm
 
 MAINTAINER Luca Orlandi <luca.orlandi@gmail.com>
 
