@@ -1,0 +1,2 @@
+*/5 * * * php -q /var/www/magento/cron.php
+# don't remove the empty line
