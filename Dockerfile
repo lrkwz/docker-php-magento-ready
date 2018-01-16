@@ -3,12 +3,12 @@ FROM php:fpm
 MAINTAINER Luca Orlandi <luca.orlandi@gmail.com>
 
 # install the PHP extensions we need
-RUN apt-get update && apt-get upgrade -y && apt-get install -y libpng12-dev libjpeg-dev libmcrypt-dev libcurl4-openssl-dev libicu-dev \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y libpng-dev libjpeg-dev libmcrypt-dev libcurl4-openssl-dev libicu-dev \
  && rm -rf /var/lib/apt/lists/* \
  && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
- && docker-php-ext-install gd opcache curl mcrypt intl pdo pdo_mysql mbstring memcached
+ && docker-php-ext-install gd opcache intl pdo_mysql
 
-RUN yes | pecl install xdebug \
+RUN yes | pecl install xdebug-2.6.0beta1 \
      && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
      && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
      && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini \
