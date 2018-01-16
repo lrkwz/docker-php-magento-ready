@@ -21,6 +21,10 @@ RUN apt-get update && apt-get install -y msmtp
 ADD msmtprc /etc/.msmtp_php
 RUN chown www-data. /etc/.msmtp_php && chmod 600 /etc/.msmtp_php
 
+# magento2 requirements
+RUN apt-get install -y libxslt1.1 libxslt1-dev
+RUN docker-php-ext-install xsl soap zip
+
 #ADD magento.ini /usr/local/etc/php-fpm.d/magento.conf
 ADD magento.ini /usr/local/etc/php/conf.d/
 ADD magento.pool.conf /usr/local/etc/php-fpm.d/www.conf
