@@ -9,9 +9,6 @@ services:
         MYSQL_DATABASE: magento
         MYSQL_USER: magento
         MYSQL_PASSWORD: magento
-        #DISABLE_VARNISH
-    volumes:
-      - ./provision/db:/docker-entrypoint-initdb.d
   dbadmin:
     image: phpmyadmin/phpmyadmin
     ports:
@@ -26,18 +23,13 @@ services:
       XDEBUG_CONFIG: remote_connect_back=1 remote_port=9001 remote_host=127.17.0.1
     volumes:
     - ./codebase:/usr/share/nginx/html
-    - ./provision/magento/local.xml:/usr/share/nginx/html/app/etc/local.xml
-    - ./provision/magento/errors.xml:/usr/share/nginx/html/errors/local.xml
-    - ./provision/magmi/:/usr/share/nginx/html/magmi/
-    - ./provision/magmi/conf/magmi.devel.ini:/usr/share/nginx/html/magmi/conf/magmi.ini
    # These will be dropped when the container is removed, leaving the codebase clean
     - /usr/share/nginx/html/var/cache
     - /usr/share/nginx/html/var
     # Log files in host's directory are easier to look for
     - ./logs/magento:/usr/share/nginx/html/var/log
-    - ./provision/db/\(Culti\)_Tracciati_New_Products_22032016_def\ inglese.csv:/usr/share/nginx/html/var/import/to_be_imported.csv
     links:
-        - db:culti-db.cedtth7vea2k.eu-central-1.rds.amazonaws.com
+        - db
         - mail
     working_dir: /usr/share/nginx/html
   nginx:
@@ -48,13 +40,6 @@ services:
         - php
     volumes:
     - ./codebase:/usr/share/nginx/html
-    - ./provision/magento/local.xml:/usr/share/nginx/html/app/etc/local.xml
-    - ./provision/magento/errors.xml:/usr/share/nginx/html/errors/local.xml
-    - ./provision/magmi/:/usr/share/nginx/html/magmi/
-    #- ./provision/nginx/nginx.conf:/etc/nginx/nginx.conf
-    - ./provision/nginx/magento.conf:/etc/nginx/conf.d/default.conf
-    - ./provision/nginx/upstream.conf:/etc/nginx/conf.d/upstream.conf
-    - ./provision/nginx/snippets/max_expires.conf:/etc/nginx/conf.d/max_expires.conf
     # Log files in host's directory are easier to look for
     - ./logs/nginx/:/var/log/nginx/
   mail:
