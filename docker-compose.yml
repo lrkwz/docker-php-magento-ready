@@ -21,7 +21,7 @@ services:
     environment:
      MYSQL_ROOT_PASSWORD: root
   php:
-    build: provision/php-fpm
+    build: .
     environment:
       XDEBUG_CONFIG: remote_connect_back=1 remote_port=9001 remote_host=127.17.0.1
     volumes:
