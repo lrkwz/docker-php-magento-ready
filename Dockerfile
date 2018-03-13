@@ -57,8 +57,8 @@ RUN curl -s -f -L -o /tmp/installer.php https://raw.githubusercontent.com/compos
  && composer --ansi --version --no-interaction \
  && rm -rf /tmp/* /tmp/.htaccess
 
-VOLUME /var/www/magento
-RUN mkdir /var/www/magento/var /var/www/magento/media && chown -Rf www-data. /var/www/magento/var /var/www/magento/media
+RUN mkdir /var/www/html/var /var/www/html/media && chown -Rf www-data. /var/www/html/var /var/www/html/media
+VOLUME /var/www/html
 
 COPY local.xml /
 COPY startup.sh /
