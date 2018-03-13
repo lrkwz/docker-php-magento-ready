@@ -57,6 +57,8 @@ RUN curl -s -f -L -o /tmp/installer.php https://raw.githubusercontent.com/compos
  && composer --ansi --version --no-interaction \
  && rm -rf /tmp/* /tmp/.htaccess
 
+RUN apt-get install git -y
+
 RUN mkdir /var/www/html/var /var/www/html/media && chown -Rf www-data. /var/www/html/var /var/www/html/media
 VOLUME /var/www/html
 
