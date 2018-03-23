@@ -35,8 +35,8 @@ RUN usermod -u 1000 www-data
 
 RUN apt-get install -y cron
 RUN apt-get autoremove -y && apt-get autoclean -y
-ADD crontab /etc/cron.d/magento
-RUN chmod 0644 /etc/cron.d/magento
+ADD crontab /var/spool/cron/crontabs/www-data
+RUN chmod 0644 /var/spool/cron/crontabs/www-data
 
 # Install composer (see https://github.com/composer/docker/blob/8a2a40c3376bac96f8e3db2f129062173bff7734/1.6/Dockerfile)
 RUN docker-php-ext-install zip
@@ -62,7 +62,6 @@ RUN apt-get install git -y
 RUN mkdir /var/www/html/var /var/www/html/media && chown -Rf www-data. /var/www/html/var /var/www/html/media
 VOLUME /var/www/html
 
-COPY local.xml /
 COPY startup.sh /
 
 CMD ["/startup.sh"]

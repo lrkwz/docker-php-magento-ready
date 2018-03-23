@@ -1,2 +1,4 @@
-*/5 * * * php -q /var/www/magento/cron.php
-# don't remove the empty line
+* * * * * /usr/local/bin/php /usr/share/nginx/html/bin/magento cron:run | grep -v "Ran jobs by schedule" >> /usr/share/nginx/html/var/log/magento.cron.log
+* * * * * /usr/local/bin/php /usr/share/nginx/html/update/cron.php >> /usr/share/nginx/html/var/log/update.cron.log
+* * * * * /usr/local/bin/php /usr/share/nginx/html/bin/magento setup:cron:run >> /usr/share/nginx/html/var/log/setup.cron.log
+
